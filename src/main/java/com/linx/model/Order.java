@@ -29,19 +29,19 @@ public class Order {
 	private String code;
 
 	@OneToOne
-	@JsonIgnoreProperties({"user", "shipping", "order", "address"})
-	private User user;
+	@JsonIgnoreProperties({ "customer", "shipping", "order", "address" })
+	private Customer customer;
 
 	@OneToOne
-	@JsonIgnoreProperties({"user", "shipping", "order", "address"})
+	@JsonIgnoreProperties({ "customer", "shipping", "order", "address" })
 	private Shipping shipping;
 
 	@OneToOne
-	@JsonIgnoreProperties({"user", "shipping", "order", "address"})
+	@JsonIgnoreProperties({ "customer", "shipping", "order", "address" })
 	private Charge charge;
 
 	@OneToOne(mappedBy = "order", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties({"user", "shipping", "order"})
+	@JsonIgnoreProperties({ "user", "shipping", "order" })
 	private Item item;
 
 	private Boolean closed;
@@ -86,12 +86,12 @@ public class Order {
 		this.code = code;
 	}
 
-	public User getUser() {
-		return user;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public Shipping getShipping() {
@@ -121,7 +121,5 @@ public class Order {
 	public void setItem(Item item) {
 		this.item = item;
 	}
-	
-	
 
 }

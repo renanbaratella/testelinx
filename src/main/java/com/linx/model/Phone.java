@@ -22,8 +22,8 @@ public class Phone {
 	private String mobile_phone;
 
 	@OneToOne
-	@JsonIgnoreProperties("user")
-	private User user;
+	@JsonIgnoreProperties("customer")
+	private Customer customer;
 
 	public Long getId() {
 		return id;
@@ -49,12 +49,12 @@ public class Phone {
 		this.mobile_phone = mobile_phone;
 	}
 
-	public User getUser() {
-		return user;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 }

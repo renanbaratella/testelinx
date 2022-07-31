@@ -1,7 +1,5 @@
 package com.linx.model;
 
-
-
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -39,13 +37,13 @@ public class Address {
 	private Date created_at;
 
 	@OneToOne
-	@JsonIgnoreProperties("user")
-	private User user;
-	
+	@JsonIgnoreProperties("customer")
+	private Customer customer;
+
 	@OneToOne(mappedBy = "address", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("address")
 	private Shipping shipping;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -114,18 +112,24 @@ public class Address {
 		return created_at;
 	}
 
-	public void setCreated_at (Date created_at) {
+	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
 	}
 
-	public User getUser() {
-		return user;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
-	
-	
+
+	public Shipping getShipping() {
+		return shipping;
+	}
+
+	public void setShipping(Shipping shipping) {
+		this.shipping = shipping;
+	}
 
 }

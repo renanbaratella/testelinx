@@ -34,10 +34,10 @@ public class Charge {
 
 	@OneToOne
 	@JsonIgnoreProperties("charge")
-	private User user;
-	
+	private Customer customer;
+
 	@OneToOne(mappedBy = "charge", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties({"charge", "shipping", "order"})
+	@JsonIgnoreProperties({ "charge", "shipping", "order" })
 	private Order order;
 
 	public Long getId() {
@@ -96,12 +96,12 @@ public class Charge {
 		this.due_at = due_at;
 	}
 
-	public User getUser() {
-		return user;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public Order getOrder() {
@@ -111,8 +111,5 @@ public class Charge {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-	
-	
-	
 
 }

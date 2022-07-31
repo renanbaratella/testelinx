@@ -9,22 +9,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.linx.model.User;
-import com.linx.repository.UserRepository;
+import com.linx.model.Customer;
+import com.linx.repository.CustomerRepository;
 
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/customer")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class UserController {
+public class CustomerController {
 
 
 	@Autowired
-	private UserRepository userRepository;
+	private CustomerRepository customerRepository;
 
 	@GetMapping
-	public ResponseEntity<List<User>> getAll() {
-		return ResponseEntity.ok(userRepository.findAll());
+	public ResponseEntity<List<Customer>> getAll() {
+		return ResponseEntity.ok(customerRepository.findAll());
 
 	}
 

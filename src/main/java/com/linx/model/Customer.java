@@ -17,8 +17,8 @@ import com.linx.enums.DocumentType;
 import com.linx.enums.Type;
 
 @Entity
-@Table(name = "tb_user")
-public class User {
+@Table(name = "tb_customer")
+public class Customer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +28,8 @@ public class User {
 
 	private String email;
 
-	@OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("user")
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("customer")
 	private Phone phone;
 
 	private String document;
@@ -42,8 +42,8 @@ public class User {
 
 	private String gender;
 
-	@OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("user")
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("customer")
 	private Address address;
 
 	private Integer fb_id;
@@ -56,12 +56,12 @@ public class User {
 
 	private LocalDate birthdate;
 
-	@OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("user")
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("customer")
 	private Order order;
 
-	@OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("user")
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("customer")
 	private Charge charge;
 
 	public Long getId() {
