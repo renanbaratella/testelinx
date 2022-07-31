@@ -28,7 +28,9 @@ public class Customer {
 
 	private String email;
 
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.REMOVE)
+	private String senha;
+
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
 	@JsonIgnoreProperties("customer")
 	private Phone phone;
 
@@ -70,6 +72,14 @@ public class Customer {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public String getName() {
@@ -191,6 +201,5 @@ public class Customer {
 	public void setCharge(Charge charge) {
 		this.charge = charge;
 	}
-
 
 }
