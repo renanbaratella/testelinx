@@ -36,8 +36,12 @@ public class Order {
 	@JsonIgnoreProperties({"order", "address"})
 	private Shipping shipping;
 
+//	@OneToOne(mappedBy = "order", cascade = CascadeType.PERSIST)
+//	@JsonIgnoreProperties("order")
+//	private Charge charge;
+	
 	@OneToOne(cascade = CascadeType.PERSIST)
-	@JsonIgnoreProperties({"order", "charge"})
+	@JsonIgnoreProperties("order")
 	private Charge charge;
 	
 	@OneToOne(cascade = CascadeType.PERSIST)

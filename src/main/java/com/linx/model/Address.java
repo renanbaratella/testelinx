@@ -45,7 +45,7 @@ public class Address {
 	private Customer customer;
 	
 	@OneToOne(cascade = CascadeType.PERSIST)
-	@JsonIgnoreProperties({"address"})
+	@JsonIgnoreProperties({"address", "order"})
 	private Shipping shipping;
 
 	public Long getId() {

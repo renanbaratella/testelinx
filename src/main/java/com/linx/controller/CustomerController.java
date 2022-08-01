@@ -55,14 +55,13 @@ public class CustomerController {
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Customer> postCustomer(@Valid @RequestBody Customer customer) {
 		return customerService.cadastrarCustomer(customer)
-				.map(resposta -> 
-					ResponseEntity.status(HttpStatus.CREATED).body(resposta)
-					)
+				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
 
-	@PutMapping("/atualizar")
-	public ResponseEntity<Customer> putUsuario(@Valid @RequestBody Customer customer) {
+	@PutMapping("/{id}")
+	public ResponseEntity<Customer> putUsuario(@PathVariable Long id, @RequestBody Customer customer) {
+		customer.setId(id);
 		return customerService.atualizarCustomer(customer)
 				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());

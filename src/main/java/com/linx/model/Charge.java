@@ -31,9 +31,9 @@ public class Charge {
 	private String status;
 
 	private LocalDate due_at;
-	
+
 	@OneToOne(mappedBy = "charge", cascade = CascadeType.PERSIST)
-	@JsonIgnoreProperties({"charge", "customer"})
+	@JsonIgnoreProperties({ "charge", "customer" })
 	private Customer customer;
 
 	@OneToOne(mappedBy = "charge", cascade = CascadeType.PERSIST)
@@ -43,8 +43,6 @@ public class Charge {
 	public Long getId() {
 		return id;
 	}
-	
-	
 
 	public void setId(Long id) {
 		this.id = id;

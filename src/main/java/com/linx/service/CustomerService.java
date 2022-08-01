@@ -33,7 +33,13 @@ public class CustomerService {
 			if (buscausuario.isPresent() && buscausuario.get().getId() != customer.getId()) {
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "usuario já existe, null");
 			}
+			
 			customer.setSenha(criptografarSenha(customer.getSenha()));
+			customer.setPhone(buscausuario.get().getPhone());
+			customer.setAddress(buscausuario.get().getAddress());
+			customer.setOrder(buscausuario.get().getOrder());
+			customer.setCharge(buscausuario.get().getCharge());
+	
 			return Optional.ofNullable(usuarioRepository.save(customer));
 		}
 		return Optional.empty();

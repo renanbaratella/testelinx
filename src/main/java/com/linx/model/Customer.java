@@ -23,7 +23,6 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	
 	private String name;
 
@@ -46,7 +45,7 @@ public class Customer {
 	private String gender;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
-	@JsonIgnoreProperties({"customer", "address", "shipping"})
+	@JsonIgnoreProperties({"customer", "address"})
 	private Address address;
 
 	private Integer fb_id;
