@@ -1,5 +1,8 @@
 package com.linx.controller;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,20 +33,38 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerRepository customerRepository;
-	
+
 	@Autowired
 	private CustomerService customerService;
 
 	@GetMapping
 	public ResponseEntity<List<Customer>> getAll() {
-		return ResponseEntity.ok(customerRepository.findAll());
+		List<Customer> customerList = customerRepository.findAll();
+
+		if (customerList.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+			for (Customer customer : customerList) {
+				Long id = customer.getId();
+				customer.add(linkTo(methodOn(CustomerController.class).getCustomerById(id)).withSelfRel());
+			}
+			return new ResponseEntity<List<Customer>>(customerList, HttpStatus.OK);
+		}
 
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Customer> getById(@PathVariable Long id) {
-		return customerRepository.findById(id).map(resposta -> ResponseEntity.ok(resposta))
-				.orElse(ResponseEntity.notFound().build());
+	public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
+		
+		Optional<Customer> customer = customerRepository.findById(id);
+		
+		if(!customer.isPresent()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}else {
+			customer.get().add(linkTo(methodOn(CustomerController.class).getAll()).withRel("List of Customer"));
+			return new ResponseEntity<Customer>(customer.get(), HttpStatus.OK);
+		}
+	
 	}
 
 	@PostMapping("/logar")
@@ -60,11 +82,21 @@ public class CustomerController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Customer> putUsuario(@PathVariable Long id, @RequestBody Customer customer) {
+	public ResponseEntity<Customer> putCustomer(@PathVariable Long id, @RequestBody Customer customer) {
 		customer.setId(id);
 		return customerService.atualizarCustomer(customer)
 				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	}
+	
+	@PatchMapping(path = "/{id}")
+	public ResponseEntity<Customer> patchCustomer(@PathVariable Long id, @RequestBody Customer customer) {
+		customer.setId(id);
+		if(!customerService.patchCustomer(customer).isPresent()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}else {	
+			return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+		}
 	}
 
 }

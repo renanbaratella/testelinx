@@ -16,14 +16,15 @@ import com.linx.repository.OrderRepository;
 @RequestMapping("/order")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OrderController {
-	
+
 	@Autowired
 	private OrderRepository orderRepository;
-	
+
 	@GetMapping
 	public ResponseEntity<List<Order>> getAll() {
 		return ResponseEntity.ok(orderRepository.findAll());
-
 	}
+	
+	
 
 }

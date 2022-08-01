@@ -12,13 +12,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.linx.enums.DocumentType;
 import com.linx.enums.Type;
 
 @Entity
 @Table(name = "tb_customer")
-public class Customer {
+public class Customer extends RepresentationModel<Customer>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

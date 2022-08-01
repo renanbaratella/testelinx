@@ -1,4 +1,4 @@
-package com.linx.model;
+	package com.linx.model;
 
 import java.time.LocalDate;
 
