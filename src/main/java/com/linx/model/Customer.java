@@ -60,11 +60,11 @@ public class Customer {
 	private LocalDate birthdate;
 	
 	@OneToOne(cascade = CascadeType.PERSIST)
-	@JsonIgnoreProperties({"customer"})
+	@JsonIgnoreProperties({"customer", "charge"})
 	private Order order;
-
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
-	@JsonIgnoreProperties({"customer"})
+	
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JsonIgnoreProperties({"customer", "order"})
 	private Charge charge;
 
 	public Long getId() {
