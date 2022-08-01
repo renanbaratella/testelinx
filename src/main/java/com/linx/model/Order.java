@@ -1,5 +1,7 @@
 package com.linx.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.linx.enums.Status;
@@ -35,18 +39,13 @@ public class Order {
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JsonIgnoreProperties({"order", "address"})
 	private Shipping shipping;
-
-//	@OneToOne(mappedBy = "order", cascade = CascadeType.PERSIST)
-//	@JsonIgnoreProperties("order")
-//	private Charge charge;
-	
-	@OneToOne(cascade = CascadeType.PERSIST)
-	@JsonIgnoreProperties("order")
-	private Charge charge;
 	
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JsonIgnoreProperties("order")
 	private Item item;
+	
+	@UpdateTimestamp
+	private LocalDate created_at;
 
 	private Boolean closed;
 
@@ -114,16 +113,16 @@ public class Order {
 		this.closed = closed;
 	}
 
-	public Charge getCharge() {
-		return charge;
-	}
-
-	public void setCharge(Charge charge) {
-		this.charge = charge;
-	}
-
 	public void setItem(Item item) {
 		this.item = item;
+	}
+	
+	public LocalDate getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(LocalDate created_at) {
+		this.created_at = created_at;
 	}
 
 }

@@ -36,10 +36,6 @@ public class Charge {
 	@JsonIgnoreProperties({ "charge", "customer" })
 	private Customer customer;
 
-	@OneToOne(mappedBy = "charge", cascade = CascadeType.PERSIST)
-	@JsonIgnoreProperties("charge")
-	private Order order;
-
 	public Long getId() {
 		return id;
 	}
@@ -102,14 +98,6 @@ public class Charge {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
-	}
-
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
 	}
 
 }
