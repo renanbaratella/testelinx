@@ -40,10 +40,12 @@ public class Address {
 	@UpdateTimestamp
 	private LocalDate created_at;
 
-	@OneToOne
-	private Customer customer;
-
 	@OneToOne(mappedBy = "address", cascade = CascadeType.PERSIST)
+	@JsonIgnoreProperties({"address"})
+	private Customer customer;
+	
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JsonIgnoreProperties({"address"})
 	private Shipping shipping;
 
 	public Long getId() {

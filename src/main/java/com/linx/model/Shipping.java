@@ -26,7 +26,7 @@ public class Shipping {
 
 	private String recipient_phone;
 
-	@OneToOne
+	@OneToOne(mappedBy = "shipping", cascade = CascadeType.PERSIST)
 	private Address address;
 
 	private String max_delivery_date;
@@ -36,7 +36,6 @@ public class Shipping {
 	private String type;
 
 	@OneToOne(mappedBy = "shipping", cascade = CascadeType.PERSIST)
-	@JsonIgnoreProperties("shipping")
 	private Order order;
 
 	public Long getId() {

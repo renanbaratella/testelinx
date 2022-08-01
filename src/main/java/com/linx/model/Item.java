@@ -1,5 +1,6 @@
 package com.linx.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +30,8 @@ public class Item {
 
 	private String status;
 
-	@OneToOne
+	@OneToOne(mappedBy = "item", cascade = CascadeType.PERSIST)
+	@JsonIgnoreProperties("item")
 	private Order order;
 
 	public Long getId() {

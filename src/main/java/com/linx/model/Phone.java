@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "tb_phone")
 public class Phone {
@@ -20,7 +22,8 @@ public class Phone {
 
 	private String mobile_phone;
 
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(mappedBy= "phone", cascade = CascadeType.PERSIST)
+	@JsonIgnoreProperties("phone")
 	private Customer customer;
 
 	public Long getId() {

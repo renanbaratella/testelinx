@@ -24,13 +24,15 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	
 	private String name;
 
 	private String email;
 
 	private String senha;
 	
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JsonIgnoreProperties({"customer", "phone"})
 	private Phone phone;
 
 	private String document;
@@ -43,7 +45,8 @@ public class Customer {
 
 	private String gender;
 
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JsonIgnoreProperties({"customer", "address", "shipping"})
 	private Address address;
 
 	private Integer fb_id;
@@ -55,11 +58,13 @@ public class Customer {
 	private String code;
 
 	private LocalDate birthdate;
-
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
+	
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JsonIgnoreProperties({"customer"})
 	private Order order;
 
 	@OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
+	@JsonIgnoreProperties({"customer"})
 	private Charge charge;
 
 	public Long getId() {
