@@ -30,7 +30,6 @@ public class Item {
 	private String status;
 
 	@OneToOne
-	@JsonIgnoreProperties("item")
 	private Order order;
 
 	public Long getId() {

@@ -55,7 +55,9 @@ public class CustomerController {
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Customer> postCustomer(@Valid @RequestBody Customer customer) {
 		return customerService.cadastrarCustomer(customer)
-				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
+				.map(resposta -> 
+					ResponseEntity.status(HttpStatus.CREATED).body(resposta)
+					)
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
 

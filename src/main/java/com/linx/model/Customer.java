@@ -29,9 +29,8 @@ public class Customer {
 	private String email;
 
 	private String senha;
-
+	
 	@OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
-	@JsonIgnoreProperties("customer")
 	private Phone phone;
 
 	private String document;
@@ -44,8 +43,7 @@ public class Customer {
 
 	private String gender;
 
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("customer")
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
 	private Address address;
 
 	private Integer fb_id;
@@ -58,12 +56,10 @@ public class Customer {
 
 	private LocalDate birthdate;
 
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("customer")
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
 	private Order order;
 
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("customer")
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.PERSIST)
 	private Charge charge;
 
 	public Long getId() {
@@ -98,14 +94,6 @@ public class Customer {
 		this.email = email;
 	}
 
-	public Phone getPhone() {
-		return phone;
-	}
-
-	public void setPhone(Phone phone) {
-		this.phone = phone;
-	}
-
 	public String getDocument() {
 		return document;
 	}
@@ -124,6 +112,14 @@ public class Customer {
 
 	public Type getType() {
 		return type;
+	}
+
+	public Phone getPhone() {
+		return phone;
+	}
+
+	public void setPhone(Phone phone) {
+		this.phone = phone;
 	}
 
 	public void setType(Type type) {

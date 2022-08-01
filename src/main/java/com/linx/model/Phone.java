@@ -1,13 +1,12 @@
 package com.linx.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_phone")
@@ -21,8 +20,7 @@ public class Phone {
 
 	private String mobile_phone;
 
-	@OneToOne
-	@JsonIgnoreProperties("customer")
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Customer customer;
 
 	public Long getId() {

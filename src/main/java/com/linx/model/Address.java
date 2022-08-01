@@ -1,14 +1,17 @@
 package com.linx.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -34,14 +37,13 @@ public class Address {
 
 	private String status;
 
-	private Date created_at;
+	@UpdateTimestamp
+	private LocalDate created_at;
 
 	@OneToOne
-	@JsonIgnoreProperties("customer")
 	private Customer customer;
 
-	@OneToOne(mappedBy = "address", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("address")
+	@OneToOne(mappedBy = "address", cascade = CascadeType.PERSIST)
 	private Shipping shipping;
 
 	public Long getId() {
@@ -108,14 +110,6 @@ public class Address {
 		this.status = status;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
-	}
-
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
-	}
-
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -132,4 +126,14 @@ public class Address {
 		this.shipping = shipping;
 	}
 
+	public LocalDate getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(LocalDate created_at) {
+		this.created_at = created_at;
+	}
+
+	
+	
 }

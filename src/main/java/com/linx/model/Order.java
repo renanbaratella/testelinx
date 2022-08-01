@@ -28,20 +28,17 @@ public class Order {
 
 	private String code;
 
-	@OneToOne
-	@JsonIgnoreProperties({ "customer", "shipping", "order", "address" })
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Customer customer;
 
-	@OneToOne
-	@JsonIgnoreProperties({ "customer", "shipping", "order", "address" })
+	
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Shipping shipping;
 
 	@OneToOne
-	@JsonIgnoreProperties({ "customer", "shipping", "order", "address" })
 	private Charge charge;
 
-	@OneToOne(mappedBy = "order", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties({ "user", "shipping", "order" })
+	@OneToOne(mappedBy = "order", cascade = CascadeType.PERSIST)
 	private Item item;
 
 	private Boolean closed;

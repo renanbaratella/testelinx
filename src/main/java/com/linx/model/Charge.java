@@ -33,16 +33,16 @@ public class Charge {
 	private LocalDate due_at;
 
 	@OneToOne
-	@JsonIgnoreProperties("charge")
 	private Customer customer;
 
-	@OneToOne(mappedBy = "charge", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties({ "charge", "shipping", "order" })
+	@OneToOne(mappedBy = "charge", cascade = CascadeType.PERSIST)
 	private Order order;
 
 	public Long getId() {
 		return id;
 	}
+	
+	
 
 	public void setId(Long id) {
 		this.id = id;
