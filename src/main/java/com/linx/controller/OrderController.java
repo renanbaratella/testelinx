@@ -1,5 +1,8 @@
 package com.linx.controller;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +25,7 @@ import com.linx.model.Customer;
 import com.linx.model.Order;
 import com.linx.repository.CustomerRepository;
 import com.linx.repository.OrderRepository;
+import com.linx.service.CustomerService;
 
 @RestController
 @RequestMapping("/order")
@@ -33,10 +37,25 @@ public class OrderController {
 	
 	@Autowired
 	private CustomerRepository customerRepository;
+	
+	@Autowired CustomerService customerService;
 
 	@GetMapping
 	public ResponseEntity<List<Order>> getAll() {
 		return ResponseEntity.ok(orderRepository.findAll());
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
+		
+		Optional<Order> order = orderRepository.findById(id);
+		
+		if(!order.isPresent()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}else {
+			return new ResponseEntity<Order>(order.get(), HttpStatus.OK);
+		}
+	
 	}
 	
 	@PostMapping
@@ -46,6 +65,8 @@ public class OrderController {
 		if (buscausuario.isPresent() && buscausuario.get().getId() != order.getCustomer().getId()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "email de customer já existe, null");
 		}
+		
+		order.getCustomer().setSenha((customerService.criptografarSenha(order.getCustomer().getSenha())));
 		
 		
 		
@@ -64,6 +85,7 @@ public class OrderController {
 		
 		order.setShipping(buscaId.get().getShipping());
 		order.setItem(buscaId.get().getItem());
+		order.setCustomer(buscaId.get().getCustomer());
 		
 		return ResponseEntity.status(HttpStatus.OK).body(orderRepository.save(order));
 	}

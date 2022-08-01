@@ -31,7 +31,7 @@ public class CustomerService {
 		if (customerRepository.findById(customer.getId()).isPresent()) {
 			Optional<Customer> buscausuario = customerRepository.findByEmail(customer.getEmail());
 			if (buscausuario.isPresent() && buscausuario.get().getId() != customer.getId()) {
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "usuario já existe, null");
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "email já existe, null");
 			}
 			
 			customer.setSenha(criptografarSenha(customer.getSenha()));
@@ -50,7 +50,7 @@ public class CustomerService {
 		
 		if(customer.getName() == null)customer.setName(customerBanco.get().getName());
 		if(customer.getEmail() == null)customer.setEmail(customerBanco.get().getEmail());
-		if(customer.getSenha() == null)customer.setSenha(criptografarSenha(customerBanco.get().getSenha()));
+		if(customer.getSenha() == null)customer.setSenha(customerBanco.get().getSenha());
 		if(customer.getPhone() == null)customer.setPhone(customerBanco.get().getPhone());
 		if(customer.getDocument() == null)customer.setDocument(customerBanco.get().getDocument());
 		if(customer.getDocument_type() == null)customer.setDocument_type(customerBanco.get().getDocument_type());
@@ -77,6 +77,7 @@ public class CustomerService {
 				customerLogin.get().setId(customer.get().getId());
 				customerLogin.get().setName(customer.get().getName());
 				customerLogin.get().setToken(gerarBasicToken(customerLogin.get().getEmail(), customerLogin.get().getSenha()));
+				customerLogin.get().setSenha(criptografarSenha(customerLogin.get().getSenha()));
 				return customerLogin;
 			}
 		}
